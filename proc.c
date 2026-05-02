@@ -343,8 +343,8 @@ scheduler(void)
       switchuvm(p);
       p->state = RUNNING;
 
-      cprintf("[SCHED] switch to pid=%d\n", p->pid);
-      
+      // cprintf("[SCHED] switch to pid=%d\n", p->pid);
+
       swtch(&(c->scheduler), p->context);
       switchkvm();
 
@@ -533,4 +533,11 @@ procdump(void)
     }
     cprintf("\n");
   }
+}
+
+int
+sys_getpid_plus(void)
+{
+  struct proc *curproc = myproc();
+  return curproc->pid + 1;
 }
